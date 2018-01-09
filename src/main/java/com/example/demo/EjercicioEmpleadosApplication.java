@@ -16,9 +16,11 @@ public class EjercicioEmpleadosApplication {
 		
 		Departamento dept = new Departamento("Informatica", "Gran Via Parque 2", "954232124");
 		Empleado emp = new Empleado("Antonio", "Rodriguez", "Calle Olmo 2", "33001753Z", "arodriguez@gmail.com");
+		
 		emp.setDepartamento("Informatica", "Gran Via Parque 2", "954232124");
 		dept.setDirector("Antonio", "Rodriguez", "Calle Olmo 2", "33001753Z", "arodriguez@gmail.com");
 		
 		System.out.println("El director del departamento" + dept.getNombre() +" es " + dept.getDirector().getNombre() +" "+ dept.getDirector().getApellido());
+		System.out.println("El departamento del empleado  es " + emp.getDepartamento().getNombre());
 	}
 }

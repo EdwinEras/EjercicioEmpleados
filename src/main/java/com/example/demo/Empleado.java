@@ -31,7 +31,8 @@ public class Empleado {
 			this.apellido = apellido;
 			this.direccion = direccion;
 			this.dni = dni;
-			this.mail = mail;	
+			this.mail = mail;
+			this.dept = new Departamento();
 			
 		}
 
@@ -80,13 +81,23 @@ public class Empleado {
 		 * @param ubicacion del departamento
 		 * @param telefono del departamento
 		 */
-		public void setDepartamento(String nombre, String ubicacion, String telefono) {
-			this.dept = new Departamento (nombre, ubicacion, telefono);
+		public void setDepartamento(Departamento dept) {
+			this.dept = dept;
 		}
 		
 		public Departamento getDepartamento() {
 			
 			return this.dept;
+		}
+		
+		public boolean esDirector() {
+			System.out.println(dept.getDirector().getDni());
+			if (dept.getDirector().getDni().equals(this.dni)) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	
 		

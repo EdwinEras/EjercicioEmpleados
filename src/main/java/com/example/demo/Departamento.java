@@ -27,7 +27,8 @@ public class Departamento {
 		super();
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
-		this.telefono = telefono;		
+		this.telefono = telefono;
+		this.director = new Empleado();
 	}
 	
 
@@ -62,8 +63,8 @@ public class Departamento {
 	 * @param dni del director
 	 * @param mail del director
 	 */
-	public void setDirector (String nombre, String apellido, String direccion, String dni, String mail) {
-		this.director = new Empleado(nombre, apellido, direccion, dni, mail);
+	public void setDirector (Empleado emp) {
+		this.director = emp;
 	}
 	
 	public Empleado getDirector() {

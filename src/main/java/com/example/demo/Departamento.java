@@ -25,6 +25,7 @@ public class Departamento {
  * @param nombre del departamento
  * @param ubicacion del departamento
  * @param telefono del departamento
+ * 
  */
 	public Departamento(String nombre, String ubicacion, String telefono) {
 		super();
@@ -32,7 +33,7 @@ public class Departamento {
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
 		this.director = new Empleado();
-		this.mapa = new MapaDepartamentos();
+		
 	}
 	
 
@@ -79,9 +80,7 @@ public class Departamento {
 		
 	}
 	
-	public MapaDepartamentos getMapa() {
-		return mapa;
-	}
+
 	
 	
 	

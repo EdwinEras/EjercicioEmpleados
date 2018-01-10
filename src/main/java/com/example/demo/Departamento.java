@@ -6,10 +6,13 @@ package com.example.demo;
  */
 public class Departamento {
 
+	
+
 	private String nombre;
 	private String ubicacion;
 	private String telefono;
 	private Empleado director;
+	private MapaDepartamentos mapa;
 /**
  * Constructor 	
  */
@@ -29,6 +32,7 @@ public class Departamento {
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
 		this.director = new Empleado();
+		this.mapa = new MapaDepartamentos();
 	}
 	
 
@@ -64,12 +68,19 @@ public class Departamento {
 	 * @param mail del director
 	 */
 	public void setDirector (Empleado emp) {
-		this.director = emp;
+		
+		this.director= emp;
+		
 	}
 	
 	public Empleado getDirector() {
+		
 		return this.director;
 		
+	}
+	
+	public MapaDepartamentos getMapa() {
+		return mapa;
 	}
 	
 	

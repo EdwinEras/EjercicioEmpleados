@@ -12,6 +12,7 @@ public class Empleado {
 	private String dni;
 	private String mail;
 	private Departamento dept;
+	private boolean vardir;
 	
 		public Empleado() {
 		super();
@@ -33,6 +34,7 @@ public class Empleado {
 			this.dni = dni;
 			this.mail = mail;
 			this.dept = new Departamento();
+			this.vardir=false;
 			
 		}
 
@@ -90,8 +92,9 @@ public class Empleado {
 			return this.dept;
 		}
 		
+
 		public boolean esDirector() {
-			System.out.println(dept.getDirector().getDni());
+		
 			if (dept.getDirector().getDni().equals(this.dni)) {
 				return true;
 			}

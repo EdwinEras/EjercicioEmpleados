@@ -17,13 +17,11 @@ public class EjercicioEmpleadosApplication {
 		Departamento dept = new Departamento("Informatica", "Gran Via Parque 2", "954232124");
 		Departamento dept2 = new Departamento("Informatica2", "Gran Via Parque 2", "954232124");
 		Empleado emp = new Empleado("Antonio", "Rodriguez", "Calle Olmo 2", "33001753Z", "arodriguez@gmail.com");
-		MapaDepartamentos mapa = new MapaDepartamentos();
+		
 		
 		emp.setDepartamento(dept);
 		dept2.setDirector(emp);
 		dept.setDirector(emp);
-		mapa.aniadeDepartamento(dept);
-		mapa.aniadeDepartamento(dept2);
 		
 		System.out.println("El director del departamento" + dept.getNombre() +" es " + dept.getDirector().getNombre() +" "+ dept.getDirector().getApellido());
 		System.out.println("El director del departamento" + dept2.getNombre() +" es " + dept2.getDirector().getNombre() +" "+ dept2.getDirector().getApellido());

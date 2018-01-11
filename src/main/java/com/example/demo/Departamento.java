@@ -12,7 +12,7 @@ public class Departamento {
 	private String ubicacion;
 	private String telefono;
 	private Empleado director;
-	private MapaDepartamentos mapa;
+	
 /**
  * Constructor 	
  */

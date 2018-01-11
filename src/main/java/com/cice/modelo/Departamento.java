@@ -1,4 +1,7 @@
-package com.example.demo;
+package com.cice.modelo;
+
+import java.util.ArrayList;
+
 /**
  * 
  * @author Javier Bajo Chacon  javier.bajochacon@gmail.com
@@ -12,6 +15,7 @@ public class Departamento {
 	private String ubicacion;
 	private String telefono;
 	private Empleado director;
+	private ArrayList<Empleado> listaEmpleados;
 	
 /**
  * Constructor 	
@@ -20,6 +24,7 @@ public class Departamento {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 /**
  * 
  * @param nombre del departamento
@@ -80,7 +85,17 @@ public class Departamento {
 		
 	}
 	
+	public ArrayList<Empleado> getListaEmpleados() {
+		return listaEmpleados;
+	}
+	public void setListaEmpleados(ArrayList<Empleado> listaEmpleados) {
+		this.listaEmpleados = listaEmpleados;
+	}
 
+	@Override
+	public String toString() {
+		return "El Departamento es " + this.nombre + " " + this.ubicacion;
+	}
 	
 	
 	

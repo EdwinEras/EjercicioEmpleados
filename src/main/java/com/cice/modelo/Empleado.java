@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.cice.modelo;
 /**
  * 
  * @author Javier Bajo Chacon  javier.bajochacon@gmail.com
@@ -14,6 +14,7 @@ public class Empleado {
 	private Departamento dept;
 	
 	
+		
 		public Empleado() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -101,6 +102,10 @@ public class Empleado {
 			else {
 				return false;
 			}
+		}
+		@Override
+		public String toString() {
+			return "El nombre del empleado es " + this.nombre + " " + this.apellido;
 		}
 	
 		

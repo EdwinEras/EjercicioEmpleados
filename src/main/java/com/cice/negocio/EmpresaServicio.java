@@ -50,7 +50,11 @@ public class EmpresaServicio {
 				break;
 			case 3:
 				//Asignar Director a Departamento
+				asignarDirector();
+				break;
 			case 4:
+				asignarEmpleado();
+				break;
 				//Asignar Empleado a Departamento
 			case 5:
 				//Mostrar todos los Empleados
@@ -75,6 +79,13 @@ public class EmpresaServicio {
 		empleado.setNombre(sc.next());
 		System.out.println("Introduce un apellido");
 		empleado.setApellido(sc.next());
+		System.out.println("Introduce un DNI");
+		empleado.setDni(sc.next());	
+		sc.nextLine();
+		System.out.println("Introduce un direccion");
+		empleado.setDireccion(sc.nextLine());
+		System.out.println("Introduce un e-mail");
+		empleado.setMail(sc.next());		
 		listaEmpleados.add(empleado);
 		System.out.println(empleado.toString());
 	}
@@ -100,14 +111,109 @@ public class EmpresaServicio {
 			departamento = new Departamento ();
 			System.out.println("Introduce un nombre");
 			departamento.setNombre(sc.next());
-			System.out.println("Introduce una ubicacion");
-			departamento.setUbicacion(sc.next());
+			sc.nextLine();
+			System.out.println("Introduce una ubicacion");			
+			departamento.setUbicacion(sc.nextLine());
+			System.out.println("Introduce una telefono");
+			departamento.setTelefono(sc.next());
 			System.out.println("-------------");
 			System.out.println("¿Quieres crear otro Departamento (s/n)");
 			System.out.println("-------------");
 			listaDepartamentos.add(departamento);
 			respuesta = sc.next();			
 		}while(respuesta.equals("s"));
+	}
+	
+	private void asignarEmpleado() {
+		int i = 0;
+		Scanner sc = new Scanner (System.in);
+		
+		int opcion1 = 0;
+		int opcion2 = 0;
+		
+		if (listaEmpleados.size()>0) {
+			System.out.println("----------------------");
+			System.out.println("Seleccione un empleado");
+		
+			for (Empleado empleado : listaEmpleados) {
+				System.out.println(i +1+") " +empleado.toString());
+				i++;				
+			}
+			System.out.println("----------------------");
+			opcion1 = sc.nextInt();
+		}
+		i= 0;
+		if (listaDepartamentos.size()>0) {
+			System.out.println("----------------------");
+			System.out.println("Seleccione un Departamento en el que agregar al Empleado");
+		
+			for (Departamento departamento : listaDepartamentos) {
+				System.out.println(i +1+") " +departamento.toString());
+				i++;				
+			}
+			System.out.println("----------------------");
+			opcion2 = sc.nextInt();
+			listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
+			listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
+			
+			
+		}
+		
+	}
+	
+	private void asignarDirector() {
+		
+		int i = 0;
+		Scanner sc = new Scanner (System.in);
+		boolean bandera = false;
+		
+		int opcion1 = 0;
+		int opcion2 = 0;
+		
+		if (listaEmpleados.size()>0) {
+			System.out.println("----------------------");
+			System.out.println("Seleccione un empleado");
+		
+			for (Empleado empleado : listaEmpleados) {
+				System.out.println(i +1+") " +empleado.toString());
+				i++;				
+			}
+			System.out.println("----------------------");
+			opcion1 = sc.nextInt();
+		}
+		i = 0;
+		if (listaDepartamentos.size()>0) {
+			System.out.println("----------------------");
+			System.out.println("Seleccione un Departamento en el que agregar al Empleado");
+		
+			for (Departamento departamento : listaDepartamentos) {
+				System.out.println(i +1+") " +departamento.toString());
+				i++;				
+			}
+			System.out.println("----------------------");
+			opcion2 = sc.nextInt();
+			
+			//Comprobamos que el Empleado no sea Director de mas de un Departamento
+			for (Departamento departamento : listaDepartamentos) {
+				if(departamento.getDirector()!= null)
+				if(departamento.getDirector().getDni().equals(listaEmpleados.get(opcion1-1).getDni()) && !departamento.getNombre().equals(listaDepartamentos.get(opcion2-1))){					
+					bandera = true;
+				}
+				
+			}
+			if  (bandera == false) {
+			//Agregamos el Empleado como Director al Departamento
+			listaDepartamentos.get(opcion2-1).setDirector(listaEmpleados.get(opcion1-1));
+			}
+			else {
+				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");
+			}
+			
+			
+		}
+		
+		
+		
 	}
 
 }

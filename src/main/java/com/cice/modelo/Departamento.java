@@ -21,7 +21,7 @@ public class Departamento {
  * Constructor 	
  */
 	public Departamento() {
-		super();
+		this.listaEmpleados = new ArrayList <>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,11 +33,11 @@ public class Departamento {
  * 
  */
 	public Departamento(String nombre, String ubicacion, String telefono) {
-		super();
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
 		this.director = new Empleado();
+		this.listaEmpleados = new ArrayList<>();
 		
 	}
 	
@@ -94,7 +94,7 @@ public class Departamento {
 
 	@Override
 	public String toString() {
-		return "El Departamento es " + this.nombre + " " + this.ubicacion;
+		return "El Departamento es " + this.nombre + " " + this.ubicacion + " " + this.telefono;
 	}
 	
 	

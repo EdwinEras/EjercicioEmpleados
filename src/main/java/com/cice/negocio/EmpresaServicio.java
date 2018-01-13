@@ -1,11 +1,17 @@
 package com.cice.negocio;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.cice.modelo.Departamento;
 import com.cice.modelo.Empleado;
 
+/**
+ * 
+ * @author Javier Bajo Chacon  javier.bajochacon@gmail.com
+ *
+ */
 
 public class EmpresaServicio {
 	
@@ -71,6 +77,9 @@ public class EmpresaServicio {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	private void crearEmpleado() {
 		Scanner sc = new Scanner (System.in);		
 		Empleado empleado = new Empleado();
@@ -80,8 +89,14 @@ public class EmpresaServicio {
 		System.out.println("Introduce un apellido");
 		empleado.setApellido(sc.next());
 		System.out.println("Introduce un DNI");
-		empleado.setDni(sc.next());	
-		sc.nextLine();
+		empleado.setDni(sc.next());		
+		sc.nextLine();		
+		while(!validar(empleado.getDni())) {
+			System.out.println("DNI ERRONEO VUELVA A INTRODUCIR UN DNI");
+			System.out.println("Introduce un DNI");
+			empleado.setDni(sc.next());		
+			sc.nextLine();		
+		}		
 		System.out.println("Introduce un direccion");
 		empleado.setDireccion(sc.nextLine());
 		System.out.println("Introduce un e-mail");
@@ -89,19 +104,25 @@ public class EmpresaServicio {
 		listaEmpleados.add(empleado);
 		System.out.println(empleado.toString());
 	}
-	
+	/**
+	 * 
+	 */
 	private void mostrarEmpleado() {
 		System.out.println("-------------");
 		listaEmpleados.forEach((k)->System.out.println(k.toString()));
 		System.out.println("-------------");
 	}
-	
+	/**
+	 * 
+	 */
 	private void mostrarDepartamentos() {
 		System.out.println("-------------");
 		listaDepartamentos.forEach((k)->System.out.println(k.toString()));
 		System.out.println("-------------");
 	}
-	
+	/**
+	 * 
+	 */
 	private void crearDepartamento() {
 		Scanner sc = new Scanner (System.in);
 		String respuesta = "";
@@ -123,13 +144,16 @@ public class EmpresaServicio {
 			respuesta = sc.next();			
 		}while(respuesta.equals("s"));
 	}
-	
+	/**
+	 * 
+	 */
 	private void asignarEmpleado() {
 		int i = 0;
 		Scanner sc = new Scanner (System.in);
+		final boolean bandera [] = new boolean [] {false};
 		
-		int opcion1 = 0;
-		int opcion2 = 0;
+		final int opcion1 [] = new int [] {0};
+		final int opcion2 [] =  new int [] {0};
 		
 		if (listaEmpleados.size()>0) {
 			System.out.println("----------------------");
@@ -140,7 +164,7 @@ public class EmpresaServicio {
 				i++;				
 			}
 			System.out.println("----------------------");
-			opcion1 = sc.nextInt();
+			opcion1[0] = sc.nextInt();
 		}
 		i= 0;
 		if (listaDepartamentos.size()>0) {
@@ -152,15 +176,36 @@ public class EmpresaServicio {
 				i++;				
 			}
 			System.out.println("----------------------");
-			opcion2 = sc.nextInt();
-			listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
-			listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
+			opcion2[0] = sc.nextInt();
+			for (Departamento departamento : listaDepartamentos) {
+				if(departamento.getListaEmpleados().size()>0) {
+					departamento.getListaEmpleados().forEach((k)->
+					{
+					if(k.getDni().equals(listaEmpleados.get(opcion1[0]-1).getDni()) && !departamento.getNombre().equals(listaDepartamentos.get(opcion2[0]-1).getNombre()))						
+						bandera[0] =true;
+					});
+				}
+									
+					
+				
+								
+			}
+			
+			if (bandera [0] == false) {			
+				listaEmpleados.get(opcion1[0]-1).setDepartamento(listaDepartamentos.get(opcion2[0]-1));			
+				listaDepartamentos.get(opcion2[0]-1).getListaEmpleados().add(listaEmpleados.get(opcion1[0]-1));
+			}
+			else {
+				System.out.println("El Empleado esta en mas de un Departamento");
+			}
 			
 			
 		}
 		
 	}
-	
+	/**
+	 * 
+	 */
 	private void asignarDirector() {
 		
 		int i = 0;
@@ -215,5 +260,67 @@ public class EmpresaServicio {
 		
 		
 	}
+	/**
+	 * 
+	 * @param dni
+	 * @return
+	 */
+	private static boolean validar(String dni) {
+		
+		String letraMayuscula="";
+		
+		if(dni.length()!=9||!Character.isLetter(dni.charAt(8)))
+			return false;
+		
+		letraMayuscula = dni.substring(8).toUpperCase();
+		
+		if(EmpresaServicio.validarNumeros(dni) && EmpresaServicio.calcularLetraDNI(dni).equals(letraMayuscula))
+			
+			return true;
+		else		
+			return false;
+	}
+		/**
+		 * 
+		 * @return true or false si todas las posiciones de 0 a 8 son numeros
+		 */
+	private static boolean validarNumeros(String dni) {
+			
+			List <String> listaNumeros = new ArrayList<> ();
+			final String [] miDNI = new String [] {""};
+						
+			for (int i = 0; i < 10; i++)
+				listaNumeros.add(String.valueOf(i));
+			
+			
+			for(final int [] i = new int [] {0}; i[0]<dni.length()-1;i[0]++) {
+				listaNumeros.forEach(k->{
+					if(dni.substring(i[0], i[0]+1).equals(k))
+						miDNI[0] +=k;				
+				});		
+				
+			}		
+			
+			if(miDNI[0].length()!=8)
+				return false;
+			else
+				return true;
+		}
+		
+/**
+ * 		
+ * @return letra del DNI
+ */
+		private static String calcularLetraDNI(String dni) {
+			int miDNI = Integer.parseInt(dni.substring(0,8));
+			int resto = 0;
+			String letra = "";
+			String [] asignacionLetra = {"T", "R", "W", "A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
+			
+			resto = miDNI%23;
+			letra = asignacionLetra[resto];
+			return letra;
+		
+		}
 
 }

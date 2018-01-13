@@ -251,12 +251,13 @@ public class EmpresaServicio {
 	
 	private boolean comprobarEmpleadoDepartamento(Empleado emp, Departamento dept) {
 		boolean bandera = false;
+		String aux = emp.getDni();
+		String aux2 = dept.getNombre();
 		
 		for (Departamento departamento : listaDepartamentos) {
 			if(departamento.getListaEmpleados().size()>0) {
 			for(Empleado empleado : departamento.getListaEmpleados()) {
-				String aux = empleado.getDni();
-				if(aux.equals(emp.getDni()) && !dept.getNombre().equals(dept.getNombre()))
+				if(empleado.getDni().equals(aux) && !dept.getNombre().equals(aux2))
 					bandera = true;//Existe Empleado en otro Departamento
 			}
 			}
@@ -273,11 +274,12 @@ public class EmpresaServicio {
 	 */
 	private boolean comprobarDirectorDepartamento(Empleado emp, Departamento dept) {
 		boolean bandera = false;
+		String aux = emp.getDni();
+		String aux2 = dept.getNombre();
 		
 		for (Departamento departamento : listaDepartamentos) {
 			if(departamento.getDirector()!= null) {				
-				String aux = departamento.getDirector().getDni();
-				if(aux.equals(emp.getDni()) && !departamento.getNombre().equals(dept.getNombre())){					
+				if(departamento.getDirector().getDni().equals(aux) && !departamento.getNombre().equals(aux2)){					
 					bandera = true;//Existe Empleado como Director de otro Departamento
 				}
 			

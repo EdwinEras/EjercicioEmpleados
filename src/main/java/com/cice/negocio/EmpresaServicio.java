@@ -67,9 +67,9 @@ public class EmpresaServicio {
 				mostrarEmpleado();
 				break;
 			case 6:
-					//Mostrar todos los Departamentos
-					mostrarDepartamentos();
-					break;
+				//Mostrar todos los Departamentos
+				mostrarDepartamentos();
+				break;
 			default:
 				System.out.println("la opcion seleccionada no es valida");
 				
@@ -78,7 +78,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * 
+	 * Metodo crearEmpleado
 	 */
 	private void crearEmpleado() {
 		Scanner sc = new Scanner (System.in);		
@@ -105,7 +105,7 @@ public class EmpresaServicio {
 		System.out.println(empleado.toString());
 	}
 	/**
-	 * 
+	 * Metodo mostrarEmpleado
 	 */
 	private void mostrarEmpleado() {
 		System.out.println("-------------");
@@ -113,7 +113,7 @@ public class EmpresaServicio {
 		System.out.println("-------------");
 	}
 	/**
-	 * 
+	 * Metodo mostrarDepartamentos
 	 */
 	private void mostrarDepartamentos() {
 		System.out.println("-------------");
@@ -121,7 +121,7 @@ public class EmpresaServicio {
 		System.out.println("-------------");
 	}
 	/**
-	 * 
+	 * Metodo crearDepartamento
 	 */
 	private void crearDepartamento() {
 		Scanner sc = new Scanner (System.in);
@@ -145,15 +145,15 @@ public class EmpresaServicio {
 		}while(respuesta.equals("s"));
 	}
 	/**
-	 * 
+	 * Metodo asignarEmpleado
 	 */
 	private void asignarEmpleado() {
 		int i = 0;
 		Scanner sc = new Scanner (System.in);
-		final boolean bandera [] = new boolean [] {false};
+		boolean bandera =false;
 		
-		final int opcion1 [] = new int [] {0};
-		final int opcion2 [] =  new int [] {0};
+		int opcion1 = 0;
+		int opcion2 =  0;
 		
 		if (listaEmpleados.size()>0) {
 			System.out.println("----------------------");
@@ -164,7 +164,7 @@ public class EmpresaServicio {
 				i++;				
 			}
 			System.out.println("----------------------");
-			opcion1[0] = sc.nextInt();
+			opcion1 = sc.nextInt();
 		}
 		i= 0;
 		if (listaDepartamentos.size()>0) {
@@ -176,24 +176,24 @@ public class EmpresaServicio {
 				i++;				
 			}
 			System.out.println("----------------------");
-			opcion2[0] = sc.nextInt();
+			opcion2 = sc.nextInt();
+			
 			for (Departamento departamento : listaDepartamentos) {
 				if(departamento.getListaEmpleados().size()>0) {
-					departamento.getListaEmpleados().forEach((k)->
-					{
-					if(k.getDni().equals(listaEmpleados.get(opcion1[0]-1).getDni()) && !departamento.getNombre().equals(listaDepartamentos.get(opcion2[0]-1).getNombre()))						
-						bandera[0] =true;
-					});
+				for(Empleado empleado : departamento.getListaEmpleados()) {
+					if(empleado.getDni().equals(listaEmpleados.get(opcion1-1).getDni()) && !departamento.getNombre().equals(listaDepartamentos.get(opcion2-1).getNombre()))
+						bandera = true;//Existe Empleado en otro Departamento
 				}
-									
+				}
+			}				
 					
 				
 								
 			}
 			
-			if (bandera [0] == false) {			
-				listaEmpleados.get(opcion1[0]-1).setDepartamento(listaDepartamentos.get(opcion2[0]-1));			
-				listaDepartamentos.get(opcion2[0]-1).getListaEmpleados().add(listaEmpleados.get(opcion1[0]-1));
+			if (bandera == false) {			
+				listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
+				listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
 			}
 			else {
 				System.out.println("El Empleado esta en mas de un Departamento");
@@ -202,9 +202,9 @@ public class EmpresaServicio {
 			
 		}
 		
-	}
+	
 	/**
-	 * 
+	 * Metodo asignarDirector
 	 */
 	private void asignarDirector() {
 		
@@ -242,7 +242,7 @@ public class EmpresaServicio {
 			for (Departamento departamento : listaDepartamentos) {
 				if(departamento.getDirector()!= null)
 				if(departamento.getDirector().getDni().equals(listaEmpleados.get(opcion1-1).getDni()) && !departamento.getNombre().equals(listaDepartamentos.get(opcion2-1))){					
-					bandera = true;
+					bandera = true;//Existe Empleado como Director de otro Departamento
 				}
 				
 			}
@@ -261,9 +261,9 @@ public class EmpresaServicio {
 		
 	}
 	/**
-	 * 
-	 * @param dni
-	 * @return
+	 * Metodo para validar un DNI
+	 * @param dni a validar
+	 * @return true o false
 	 */
 	private static boolean validar(String dni) {
 		
@@ -281,7 +281,7 @@ public class EmpresaServicio {
 			return false;
 	}
 		/**
-		 * 
+		 * Metodo que valida los numeros de un DNI
 		 * @return true or false si todas las posiciones de 0 a 8 son numeros
 		 */
 	private static boolean validarNumeros(String dni) {
@@ -308,7 +308,7 @@ public class EmpresaServicio {
 		}
 		
 /**
- * 		
+ * Metodo que calcula la letra del DNI		
  * @return letra del DNI
  */
 		private static String calcularLetraDNI(String dni) {

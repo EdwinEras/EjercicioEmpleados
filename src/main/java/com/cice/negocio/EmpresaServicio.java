@@ -91,12 +91,12 @@ public class EmpresaServicio {
 		System.out.println("Introduce un DNI");
 		empleado.setDni(sc.next());		
 		sc.nextLine();		
-		while(!validar(empleado.getDni())) {
-			System.out.println("DNI ERRONEO VUELVA A INTRODUCIR UN DNI");
+		while(comprobarEmpleado(empleado.getDni())) {
+			System.out.println("Ya existe un empleado con ese DNI");
 			System.out.println("Introduce un DNI");
 			empleado.setDni(sc.next());		
-			sc.nextLine();		
-		}		
+			sc.nextLine();					
+		}	
 		System.out.println("Introduce un direccion");
 		empleado.setDireccion(sc.nextLine());
 		System.out.println("Introduce un e-mail");
@@ -177,21 +177,10 @@ public class EmpresaServicio {
 			}
 			System.out.println("----------------------");
 			opcion2 = sc.nextInt();
-			
-			for (Departamento departamento : listaDepartamentos) {
-				if(departamento.getListaEmpleados().size()>0) {
-				for(Empleado empleado : departamento.getListaEmpleados()) {
-					if(empleado.getDni().equals(listaEmpleados.get(opcion1-1).getDni()) && !departamento.getNombre().equals(listaDepartamentos.get(opcion2-1).getNombre()))
-						bandera = true;//Existe Empleado en otro Departamento
-				}
-				}
-			}				
-					
-				
-								
+										
 			}
 			
-			if (bandera == false) {			
+			if (comprobarEmpleadoDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))) {			
 				listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
 				listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
 			}
@@ -238,89 +227,86 @@ public class EmpresaServicio {
 			System.out.println("----------------------");
 			opcion2 = sc.nextInt();
 			
-			//Comprobamos que el Empleado no sea Director de mas de un Departamento
-			for (Departamento departamento : listaDepartamentos) {
-				if(departamento.getDirector()!= null)
-				if(departamento.getDirector().getDni().equals(listaEmpleados.get(opcion1-1).getDni()) && !departamento.getNombre().equals(listaDepartamentos.get(opcion2-1))){					
-					bandera = true;//Existe Empleado como Director de otro Departamento
-				}
-				
-			}
-			if  (bandera == false) {
-			//Agregamos el Empleado como Director al Departamento
-			listaDepartamentos.get(opcion2-1).setDirector(listaEmpleados.get(opcion1-1));
+		
+			if  (comprobarDirectorDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))) {
+				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");				
 			}
 			else {
-				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");
+				//Agregamos el Empleado como Director al Departamento
+				listaDepartamentos.get(opcion2-1).setDirector(listaEmpleados.get(opcion1-1));
 			}
 			
 			
 		}
 		
 		
+		
+	}
+	
+	/**
+	 * 
+	 * @param emp Empleado a comprobar
+	 * @param dept Departamento al que pertenece
+	 * @return true o false
+	 */
+	
+	
+	private boolean comprobarEmpleadoDepartamento(Empleado emp, Departamento dept) {
+		boolean bandera = false;
+		
+		for (Departamento departamento : listaDepartamentos) {
+			if(departamento.getListaEmpleados().size()>0) {
+			for(Empleado empleado : departamento.getListaEmpleados()) {
+				String aux = empleado.getDni();
+				if(aux.equals(emp.getDni()) && !dept.getNombre().equals(dept.getNombre()))
+					bandera = true;//Existe Empleado en otro Departamento
+			}
+			}
+		}
+		return bandera;
+		
+	}
+	
+	/**
+	 * 
+	 * @param emp Empleado a comprobar
+	 * @param dept Departamento al que pertenece
+	 * @return true o false
+	 */
+	private boolean comprobarDirectorDepartamento(Empleado emp, Departamento dept) {
+		boolean bandera = false;
+		
+		for (Departamento departamento : listaDepartamentos) {
+			if(departamento.getDirector()!= null) {				
+				String aux = departamento.getDirector().getDni();
+				if(aux.equals(emp.getDni()) && !departamento.getNombre().equals(dept.getNombre())){					
+					bandera = true;//Existe Empleado como Director de otro Departamento
+				}
+			
+			}
+		}
+		
+		return bandera;
 		
 	}
 	/**
-	 * Metodo para validar un DNI
-	 * @param dni a validar
+	 * 
+	 * @param dni a comprobar que no existe
 	 * @return true o false
 	 */
-	private static boolean validar(String dni) {
+	private boolean comprobarEmpleado (String dni) {
 		
-		String letraMayuscula="";
+		boolean bandera = false;
 		
-		if(dni.length()!=9||!Character.isLetter(dni.charAt(8)))
-			return false;
-		
-		letraMayuscula = dni.substring(8).toUpperCase();
-		
-		if(EmpresaServicio.validarNumeros(dni) && EmpresaServicio.calcularLetraDNI(dni).equals(letraMayuscula))
+		for(Empleado empleado : listaEmpleados) {
 			
-			return true;
-		else		
-			return false;
+			if(empleado.getDni().equals(dni)) {
+				bandera = true;
+			}
+			
+		}
+		return bandera;
+		
 	}
-		/**
-		 * Metodo que valida los numeros de un DNI
-		 * @return true or false si todas las posiciones de 0 a 8 son numeros
-		 */
-	private static boolean validarNumeros(String dni) {
-			
-			List <String> listaNumeros = new ArrayList<> ();
-			final String [] miDNI = new String [] {""};
-						
-			for (int i = 0; i < 10; i++)
-				listaNumeros.add(String.valueOf(i));
-			
-			
-			for(final int [] i = new int [] {0}; i[0]<dni.length()-1;i[0]++) {
-				listaNumeros.forEach(k->{
-					if(dni.substring(i[0], i[0]+1).equals(k))
-						miDNI[0] +=k;				
-				});		
-				
-			}		
-			
-			if(miDNI[0].length()!=8)
-				return false;
-			else
-				return true;
-		}
-		
-/**
- * Metodo que calcula la letra del DNI		
- * @return letra del DNI
- */
-		private static String calcularLetraDNI(String dni) {
-			int miDNI = Integer.parseInt(dni.substring(0,8));
-			int resto = 0;
-			String letra = "";
-			String [] asignacionLetra = {"T", "R", "W", "A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
-			
-			resto = miDNI%23;
-			letra = asignacionLetra[resto];
-			return letra;
-		
-		}
 
 }

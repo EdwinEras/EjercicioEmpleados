@@ -133,6 +133,12 @@ public class EmpresaServicio {
 			System.out.println("Introduce un nombre");
 			departamento.setNombre(sc.next());
 			sc.nextLine();
+			while(comprobarDepartamento(departamento.getNombre())) {
+				System.out.println("Ya existe un departamento con ese nombre");
+				System.out.println("Introduce otro nombre");
+				departamento.setNombre(sc.next());		
+				sc.nextLine();					
+			}	
 			System.out.println("Introduce una ubicacion");			
 			departamento.setUbicacion(sc.nextLine());
 			System.out.println("Introduce una telefono");
@@ -144,6 +150,28 @@ public class EmpresaServicio {
 			respuesta = sc.next();			
 		}while(respuesta.equals("s"));
 	}
+	
+	/**
+	 * 
+	 * @param nombre del departamento a comprobar
+	 * @return true o false
+	 */
+	
+	private boolean comprobarDepartamento (String nombre) {
+		
+		boolean bandera = false;
+		
+		for(Departamento departamento : listaDepartamentos) {
+			
+			if(departamento.getNombre().equals(nombre)) {
+				bandera = true;
+			}
+			
+		}
+		return bandera;
+		
+	}
+	
 	/**
 	 * Metodo asignarEmpleado
 	 */

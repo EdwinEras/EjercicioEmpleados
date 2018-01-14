@@ -103,6 +103,7 @@ public class Empleado {
 				return false;
 			}
 		}
+		
 		@Override
 		public String toString() {
 			return "El nombre del empleado es " + this.nombre + " " + this.apellido;

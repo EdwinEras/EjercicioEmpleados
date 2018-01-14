@@ -65,14 +65,7 @@ public class Departamento {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	/**
-	 * 
-	 * @param nombre del director
-	 * @param apellido del director 
-	 * @param direccion del director
-	 * @param dni del director
-	 * @param mail del director
-	 */
+	
 	public void setDirector (Empleado emp) {
 		
 		this.director= emp;

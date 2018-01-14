@@ -291,7 +291,7 @@ public class EmpresaServicio {
 	}
 	/**
 	 * 
-	 * @param dni a comprobar que no existe
+	 * @param dni a comprobar que no existe en la Lista de Empleados
 	 * @return true o false
 	 */
 	private boolean comprobarEmpleado (String dni) {

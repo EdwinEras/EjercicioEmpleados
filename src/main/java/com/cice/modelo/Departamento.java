@@ -21,8 +21,8 @@ public class Departamento {
  * Constructor 	
  */
 	public Departamento() {
-		this.listaEmpleados = new ArrayList <>();
 		// TODO Auto-generated constructor stub
+		this.listaEmpleados = new ArrayList<>();
 	}
 
 /**
@@ -81,6 +81,7 @@ public class Departamento {
 	public ArrayList<Empleado> getListaEmpleados() {
 		return listaEmpleados;
 	}
+	
 	public void setListaEmpleados(ArrayList<Empleado> listaEmpleados) {
 		this.listaEmpleados = listaEmpleados;
 	}

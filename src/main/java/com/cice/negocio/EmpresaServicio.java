@@ -31,6 +31,7 @@ public class EmpresaServicio {
 			System.out.println("4. Asignar Empleado a Departamento");
 			System.out.println("5. Mostrar todos los Empleados");
 			System.out.println("6. Mostrar todos los Departamentos");
+			System.out.println("7. Mostrar Organigrama de la Empresa7");
 			System.out.println("0. salir");
 			opcion = sc.nextInt();
 			
@@ -69,6 +70,10 @@ public class EmpresaServicio {
 			case 6:
 				//Mostrar todos los Departamentos
 				mostrarDepartamentos();
+				break;
+			case 7: 
+				//Mostrar Organigrama
+				mostrarOrganigram();
 				break;
 			default:
 				System.out.println("la opcion seleccionada no es valida");
@@ -184,6 +189,8 @@ public class EmpresaServicio {
 		int opcion2 =  0;
 		
 		if (listaEmpleados.size()>0) {
+			do {
+				i=0;
 			System.out.println("----------------------");
 			System.out.println("Seleccione un empleado");
 		
@@ -193,10 +200,14 @@ public class EmpresaServicio {
 			}
 			System.out.println("----------------------");
 			opcion1 = sc.nextInt();
+			}while(opcion1-1>listaEmpleados.size() || opcion1-1 <0);	
 		}
-		i= 0;
+		
 		if (listaDepartamentos.size()>0) {
 			System.out.println("----------------------");
+			
+			do {
+				i= 0;
 			System.out.println("Seleccione un Departamento en el que agregar al Empleado");
 		
 			for (Departamento departamento : listaDepartamentos) {
@@ -205,12 +216,18 @@ public class EmpresaServicio {
 			}
 			System.out.println("----------------------");
 			opcion2 = sc.nextInt();
-										
-			}
-			
-			if (comprobarEmpleadoDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))) {			
+			}while(opcion2-1>listaDepartamentos.size() || opcion2-1 <0);						
+			}	
+		
+			if (comprobarEmpleadoDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))== false) {
+				
+				if(comprobarDepartamento(listaDepartamentos.get(opcion2-1),listaEmpleados.get(opcion1-1))==false) {
 				listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
 				listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
+				}
+				else {
+					System.out.println("El Empleado ya está en este Departamento");
+				}
 			}
 			else {
 				System.out.println("El Empleado esta en mas de un Departamento");
@@ -269,6 +286,23 @@ public class EmpresaServicio {
 			
 	}
 	
+	private boolean comprobarDepartamento (Departamento dept, Empleado emp) {
+	
+		if(dept.getListaEmpleados().size()>0) {
+		for (Empleado empleado : dept.getListaEmpleados()) {
+			if (empleado.getDni().equals(emp.getDni()))
+				return true;
+		}
+		}
+		
+		return false;
+		
+		
+		
+		
+	}
+	
+	
 	/**
 	 * 
 	 * @param emp Empleado a comprobar
@@ -285,8 +319,9 @@ public class EmpresaServicio {
 		for (Departamento departamento : listaDepartamentos) {
 			if(departamento.getListaEmpleados().size()>0) {
 			for(Empleado empleado : departamento.getListaEmpleados()) {
-				if(empleado.getDni().equals(auxemp) && !dept.getNombre().equals(auxdept))
+				if(empleado.getDni().equals(auxemp) && !empleado.getDepartamento().getNombre().equals(auxdept)) {				
 					bandera = true;//Existe Empleado en otro Departamento
+				}
 			}
 			}
 		}
@@ -334,6 +369,40 @@ public class EmpresaServicio {
 			
 		}
 		return bandera;
+		
+	}
+	
+	private void mostrarOrganigram() {
+		
+		if (listaDepartamentos.size()>0) {
+			System.out.println("-------------");
+			System.out.println("Departamentos");
+			System.out.println("-------------");
+		}
+		for (Departamento departamento : listaDepartamentos) {
+			System.out.println(departamento.toString());
+			if(departamento.getListaEmpleados().size()>0) {
+			departamento.getListaEmpleados().forEach((k)->System.out.println(k.toString()));
+			}
+			if(departamento.getDirector()!=null) {
+			System.out.println("El director del Departamento es--> " + departamento.getDirector().toString());
+			}			
+			System.out.println("-------------");	
+			
+		}
+		if(listaEmpleados.size() > 0) {
+			System.out.println("-------------");
+			System.out.println("Empleados");
+			System.out.println("-------------");	
+		}
+		for (Empleado empleado : listaEmpleados) {
+				
+			System.out.println(empleado.toString());
+			System.out.println("-------------");
+			
+		}
+		
+		
 		
 	}
 

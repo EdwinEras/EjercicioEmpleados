@@ -35,7 +35,7 @@ public class EmpresaServicio {
 			System.out.println("4. Asignar Empleado a Departamento");
 			System.out.println("5. Mostrar todos los Empleados");
 			System.out.println("6. Mostrar todos los Departamentos");
-			System.out.println("7. Mostrar Organigrama de la Empresa7");
+			System.out.println("7. Mostrar Organigrama de la Empresa");
 			System.out.println("0. salir");
 			opcion = sc.nextInt();
 			
@@ -192,63 +192,37 @@ public class EmpresaServicio {
 	 * Método asignarEmpleado
 	 */
 	private void asignarEmpleado() {
-		int i = 0;
-		Scanner sc = new Scanner (System.in);
-		boolean bandera =false;
-		
+		final int i[] = new int[] {0};
+		Scanner sc = new Scanner (System.in);		
 		int opcion1 = 0;
 		int opcion2 =  0;
 		
 		if (listaEmpleados.size()>0) {
 			do {
-				i=0;
-			System.out.println("----------------------");
-			System.out.println("Seleccione un empleado");
-		
-			for (Empleado empleado : listaEmpleados) {
-				System.out.println(i +1+") " +empleado.toString());
-				i++;				
-			}
-			System.out.println("----------------------");
-			opcion1 = sc.nextInt();
-			}while(opcion1-1>listaEmpleados.size() || opcion1-1 <0);	
-		}
-		
+				i[0]= 0;
+				System.out.println("Seleccione un empleado");		
+				listaEmpleados.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});		
+				opcion1 = sc.nextInt();
+			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);	
+		}	
 		if (listaDepartamentos.size()>0) {
-			System.out.println("----------------------");
-			
 			do {
-				i= 0;
-			System.out.println("Seleccione un Departamento en el que agregar al Empleado");
-		
-			for (Departamento departamento : listaDepartamentos) {
-				System.out.println(i +1+") " +departamento.toString());
-				i++;				
-			}
-			System.out.println("----------------------");
-			opcion2 = sc.nextInt();
-			}while(opcion2-1>listaDepartamentos.size() || opcion2-1 <0);						
-			}	
-		
-			if (comprobarEmpleadoDepartamentos(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))== false) {
-				//Comprobamos que el empleado no se encuentre en otro departamento
+				i[0]= 0;
+				System.out.println("Seleccione un Departamento");
+				listaDepartamentos.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});
+				opcion2 = sc.nextInt();
+			}while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);						
 				
+			if (comprobarEmpleadoDepartamentos(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))== false) {
 				if(comprobarDepartamento(listaDepartamentos.get(opcion2-1),listaEmpleados.get(opcion1-1))==false) {
-					//Comprobamos que el empleado no se encuentre ya agregado en la listaEmpleados de este Departamento
-					
-				listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
-				listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
+					listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
+					listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
 				}
-				else {
-					System.out.println("El Empleado ya está en este Departamento");
-				}
+				else System.out.println("El Empleado ya está en este Departamento");				
 			}
-			else {
-				System.out.println("El Empleado esta en mas de un Departamento");
-			}
-			
-			
+			else System.out.println("El Empleado esta en mas de un Departamento");		
 		}
+	}
 		
 	
 	/**
@@ -256,48 +230,36 @@ public class EmpresaServicio {
 	 */
 	private void asignarDirector() {
 		
-		int i = 0;
+		final int i[] = new int[] {0};
 		Scanner sc = new Scanner (System.in);
 		boolean bandera = false;
 		
 		int opcion1 = 0;
 		int opcion2 = 0;
 		
+
 		if (listaEmpleados.size()>0) {
-			System.out.println("----------------------");
-			System.out.println("Seleccione un empleado");
-		
-			for (Empleado empleado : listaEmpleados) {
-				System.out.println(i +1+") " +empleado.toString());
-				i++;				
-			}
-			System.out.println("----------------------");
-			opcion1 = sc.nextInt();
+			do {
+				i[0]= 0;
+				System.out.println("Seleccione un empleado");		
+				listaEmpleados.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});		
+				opcion1 = sc.nextInt();
+				System.out.println(listaEmpleados.size());
+			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);	
 		}
-		i = 0;
 		if (listaDepartamentos.size()>0) {
-			System.out.println("----------------------");
-			System.out.println("Seleccione un Departamento en el que agregar al Empleado");
-		
-			for (Departamento departamento : listaDepartamentos) {
-				System.out.println(i +1+") " +departamento.toString());
-				i++;				
-			}
-			System.out.println("----------------------");
+		do {		
+			i[0] = 0;
+			System.out.println("Seleccione un Departamento en el que agregar al Empleado");		
+			listaDepartamentos.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});			
 			opcion2 = sc.nextInt();
-			
-		
-			if  (comprobarDirectorDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))) {
+			System.out.println(opcion2);
+		}while(opcion2-1>listaDepartamentos.size() -1|| opcion2-1 <0);	
+			if  (comprobarDirectorDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1)))
 				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");				
-			}
-			else {
-				//Agregamos el Empleado como Director al Departamento
-				listaDepartamentos.get(opcion2-1).setDirector(listaEmpleados.get(opcion1-1));
-			}
 			
-			
-		}
-			
+			else listaDepartamentos.get(opcion2-1).setDirector(listaEmpleados.get(opcion1-1));			
+		}		
 	}
 	
 	/**
@@ -315,13 +277,8 @@ public class EmpresaServicio {
 			if (empleado.getDni().equals(emp.getDni()))
 				bandera = true;
 		}
-		}
-		
-		return bandera;
-		
-		
-		
-		
+		}		
+		return bandera;	
 	}
 	
 	
@@ -389,8 +346,7 @@ public class EmpresaServicio {
 			}
 			
 		}
-		return bandera;
-		
+		return bandera;		
 	}
 	
 	/**
@@ -422,12 +378,8 @@ public class EmpresaServicio {
 		for (Empleado empleado : listaEmpleados) {
 				
 			System.out.println(empleado.toString());
-			System.out.println("-------------");
-			
-		}
-		
-		
-		
+			System.out.println("-------------");			
+		}		
 	}
 
 }

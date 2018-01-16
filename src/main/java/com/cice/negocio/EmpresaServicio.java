@@ -18,6 +18,10 @@ public class EmpresaServicio {
 	private ArrayList <Empleado> listaEmpleados= new ArrayList <>();
 	private ArrayList <Departamento> listaDepartamentos= new ArrayList <>();
 	
+	/**
+	 * Método showMenu
+	 */
+	
 	public void showMenu() {
 		Scanner sc = new Scanner (System.in);
 		int opcion = 0;
@@ -43,6 +47,10 @@ public class EmpresaServicio {
 		sc.close();
 	}
 	
+	/**
+	 * Método controles
+	 * @param opcion seleccionada
+	 */	
 	private void controles (int opcion) {
 		switch (opcion){
 			case 0:
@@ -83,7 +91,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Metodo crearEmpleado
+	 * Método crearEmpleado
 	 */
 	private void crearEmpleado() {
 		Scanner sc = new Scanner (System.in);		
@@ -109,24 +117,27 @@ public class EmpresaServicio {
 		listaEmpleados.add(empleado);
 		System.out.println(empleado.toString());
 	}
+	
 	/**
-	 * Metodo mostrarEmpleado
+	 * Método mostrarEmpleado
 	 */
 	private void mostrarEmpleado() {
 		System.out.println("-------------");
 		listaEmpleados.forEach((k)->System.out.println(k.toString()));
 		System.out.println("-------------");
 	}
+	
 	/**
-	 * Metodo mostrarDepartamentos
+	 * Método mostrarDepartamentos
 	 */
 	private void mostrarDepartamentos() {
 		System.out.println("-------------");
 		listaDepartamentos.forEach((k)->System.out.println(k.toString()));
 		System.out.println("-------------");
 	}
+	
 	/**
-	 * Metodo crearDepartamento
+	 * Método crearDepartamento
 	 */
 	private void crearDepartamento() {
 		Scanner sc = new Scanner (System.in);
@@ -157,7 +168,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * 
+	 * Método comprobarDepartamento
 	 * @param nombre del departamento a comprobar
 	 * @return true o false
 	 */
@@ -178,7 +189,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Metodo asignarEmpleado
+	 * Método asignarEmpleado
 	 */
 	private void asignarEmpleado() {
 		int i = 0;
@@ -290,7 +301,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * 
+	 * Método comprobarDepartamento
 	 * @param dept departamento a comprobar
 	 * @param emp empleado a comprobar
 	 * @return true o false si el empleado ya se encuentra en el departamento
@@ -315,12 +326,11 @@ public class EmpresaServicio {
 	
 	
 	/**
-	 * 
+	 * Método comprobarEmpleadoDepartamentos
 	 * @param emp Empleado a comprobar
 	 * @param dept Departamento al que pertenece
 	 * @return true o false
 	 */
-	
 	
 	private boolean comprobarEmpleadoDepartamentos(Empleado emp, Departamento dept) {
 		boolean bandera = false;
@@ -341,7 +351,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * 
+	 * Método comprobarDirectorDepartamento
 	 * @param emp Empleado a comprobar
 	 * @param dept Departamento al que pertenece
 	 * @return true o false
@@ -364,7 +374,7 @@ public class EmpresaServicio {
 		
 	}
 	/**
-	 * 
+	 * Método comprobarEmpleado
 	 * @param dni a comprobar que no existe en la Lista de Empleados
 	 * @return true o false
 	 */
@@ -383,6 +393,9 @@ public class EmpresaServicio {
 		
 	}
 	
+	/**
+	 * Método mostrarOganigrama
+	 */
 	private void mostrarOrganigram() {
 		
 		if (listaDepartamentos.size()>0) {

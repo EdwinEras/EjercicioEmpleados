@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"com.cice.negocio","l":"EmpresaServicio"}]

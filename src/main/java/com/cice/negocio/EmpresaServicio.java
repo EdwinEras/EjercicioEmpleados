@@ -232,8 +232,6 @@ public class EmpresaServicio {
 		
 		final int i[] = new int[] {0};
 		Scanner sc = new Scanner (System.in);
-		boolean bandera = false;
-		
 		int opcion1 = 0;
 		int opcion2 = 0;
 		

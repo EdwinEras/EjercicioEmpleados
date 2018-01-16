@@ -219,9 +219,12 @@ public class EmpresaServicio {
 			}while(opcion2-1>listaDepartamentos.size() || opcion2-1 <0);						
 			}	
 		
-			if (comprobarEmpleadoDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))== false) {
+			if (comprobarEmpleadoDepartamentos(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))== false) {
+				//Comprobamos que el empleado no se encuentre en otro departamento
 				
 				if(comprobarDepartamento(listaDepartamentos.get(opcion2-1),listaEmpleados.get(opcion1-1))==false) {
+					//Comprobamos que el empleado no se encuentre ya agregado en la listaEmpleados de este Departamento
+					
 				listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
 				listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
 				}
@@ -286,16 +289,24 @@ public class EmpresaServicio {
 			
 	}
 	
+	/**
+	 * 
+	 * @param dept departamento a comprobar
+	 * @param emp empleado a comprobar
+	 * @return true o false si el empleado ya se encuentra en el departamento
+	 */
 	private boolean comprobarDepartamento (Departamento dept, Empleado emp) {
 	
+		boolean bandera = false;
+		
 		if(dept.getListaEmpleados().size()>0) {
 		for (Empleado empleado : dept.getListaEmpleados()) {
 			if (empleado.getDni().equals(emp.getDni()))
-				return true;
+				bandera = true;
 		}
 		}
 		
-		return false;
+		return bandera;
 		
 		
 		
@@ -311,7 +322,7 @@ public class EmpresaServicio {
 	 */
 	
 	
-	private boolean comprobarEmpleadoDepartamento(Empleado emp, Departamento dept) {
+	private boolean comprobarEmpleadoDepartamentos(Empleado emp, Departamento dept) {
 		boolean bandera = false;
 		String auxemp = emp.getDni();
 		String auxdept = dept.getNombre();

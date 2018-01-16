@@ -22,7 +22,7 @@ public class Departamento {
  */
 	public Departamento() {
 		// TODO Auto-generated constructor stub
-		this.listaEmpleados = new ArrayList<>();
+		this.listaEmpleados = new ArrayList<>(); //Inicializamos el ArrayList
 	}
 
 /**
@@ -37,7 +37,7 @@ public class Departamento {
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
 		this.director = new Empleado();
-		this.listaEmpleados = new ArrayList<>();
+		this.listaEmpleados = new ArrayList<>(); //Inicializamos el ArrayList
 		
 	}
 	

@@ -91,18 +91,7 @@ public class Empleado {
 		public Departamento getDepartamento() {
 			
 			return this.dept;
-		}
-		
-
-		public boolean esDirector() {
-		
-			if (dept.getDirector().getDni().equals(this.dni)) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
+		}	
 		
 		@Override
 		public String toString() {

@@ -19,7 +19,7 @@ public class EmpresaServicio {
 	private ArrayList <Departamento> listaDepartamentos= new ArrayList <>();
 	
 	/**
-	 * Método showMenu
+	 * Método showMenu muestra el menú del programa
 	 */
 	
 	public void showMenu() {
@@ -48,7 +48,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método controles
+	 * Método controles llama a los distintos métodos de la clase
 	 * @param opcion seleccionada
 	 */	
 	private void controles (int opcion) {
@@ -68,9 +68,9 @@ public class EmpresaServicio {
 				asignarDirector();
 				break;
 			case 4:
-				asignarEmpleado();
-				break;
 				//Asignar Empleado a Departamento
+				asignarEmpleado();
+				break;				
 			case 5:
 				//Mostrar todos los Empleados
 				mostrarEmpleado();
@@ -84,14 +84,12 @@ public class EmpresaServicio {
 				mostrarOrganigram();
 				break;
 			default:
-				System.out.println("la opcion seleccionada no es valida");
-				
-				
+				System.out.println("la opcion seleccionada no es valida");				
 		}
 	}
 	
 	/**
-	 * Método crearEmpleado
+	 * Método crearEmpleado crea un Empleado con comprobaciones para que no existan DNI duplicados
 	 */
 	private void crearEmpleado() {
 		Scanner sc = new Scanner (System.in);		
@@ -119,7 +117,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método mostrarEmpleado
+	 * Método mostrarEmpleado muestra la lista de Empleados
 	 */
 	private void mostrarEmpleado() {
 		int i = 0;
@@ -133,7 +131,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método mostrarDepartamentos
+	 * Método mostrarDepartamentos muestra la lista de Departamentos
 	 */
 	private void mostrarDepartamentos() {
 		int i = 0;
@@ -147,7 +145,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método crearDepartamento
+	 * Método crearDepartamento con comprobaciones para que el Departamento no se cree varias veces
 	 */
 	private void crearDepartamento() {
 		Scanner sc = new Scanner (System.in);
@@ -178,7 +176,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método comprobarDepartamento
+	 * Método comprobarDepartamento comprueba que el Departamento no esté creado aún
 	 * @param nombre del departamento a comprobar
 	 * @return true o false
 	 */
@@ -199,7 +197,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método asignarEmpleado
+	 * Método asignarEmpleado con comprobaciones para no agregar varias veces el mismo Empleado a un Departamento o un Empleado a distintos Departamentos
 	 */
 	private void asignarEmpleado() {
 		Scanner sc = new Scanner (System.in);		
@@ -208,16 +206,15 @@ public class EmpresaServicio {
 		Empleado auxemp;
 		Departamento auxdept;
 		
-		if (listaEmpleados.size()>0) {
+		if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
 			do {
 				if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)
 					System.out.println("Opccion Erronea");
 				System.out.println("Seleccione un empleado");	
 				mostrarEmpleado();						
 				opcion1 = sc.nextInt();				
-			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);	
-		}	
-		if (listaDepartamentos.size()>0) {
+			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);			
+
 			do {
 				if(opcion2-1>listaEmpleados.size()-1 || opcion2-1 <0)
 					System.out.println("Opccion Erronea");
@@ -236,22 +233,26 @@ public class EmpresaServicio {
 			}
 			else System.out.println("El Empleado esta en mas de un Departamento");		
 		}
+		else if (listaEmpleados.size()==0)
+			System.out.println("Debe crear antes un Empleado");
+		
+		else
+			System.out.println("Debe crear antes un Departamento");
 	}
 		
 	
 	/**
-	 * Metodo asignarDirector
+	 * Metodo asignarDirector con comprobaciones para que el Empleado no sea Director de más de un Departamento
 	 */
 	private void asignarDirector() {
 		
-		final int i[] = new int[] {0};
 		Scanner sc = new Scanner (System.in);
 		int opcion1 = 0;
 		int opcion2 = 0;
 		Empleado auxemp;
 		Departamento auxdept;
 		
-		if (listaEmpleados.size()>0) {
+		if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
 			do {
 				if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)
 					System.out.println("Opccion Erronea");
@@ -259,9 +260,7 @@ public class EmpresaServicio {
 				mostrarEmpleado();						
 				opcion1 = sc.nextInt();
 				System.out.println(listaEmpleados.size());
-			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);	
-		}
-		if (listaDepartamentos.size()>0) {
+			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);		
 		do {		
 			if(opcion2-1>listaEmpleados.size()-1 || opcion2-1 <0)
 				System.out.println("Opccion Erronea");
@@ -275,11 +274,16 @@ public class EmpresaServicio {
 			if  (comprobarDirectorDepartamento(auxemp, auxdept))
 				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");			
 			else auxdept.setDirector(auxemp);			
-		}		
+		}
+		else if (listaEmpleados.size()==0)
+			System.out.println("Debe crear antes un Empleado");
+		
+		else
+			System.out.println("Debe crear antes un Departamento");
 	}
 	
 	/**
-	 * Método comprobarDepartamento
+	 * Método comprobarDepartamento comprueba que el Empleado dado no se encuentre aún en el Departamento
 	 * @param dept departamento a comprobar
 	 * @param emp empleado a comprobar
 	 * @return true o false si el empleado ya se encuentra en el departamento
@@ -299,7 +303,7 @@ public class EmpresaServicio {
 	
 	
 	/**
-	 * Método comprobarEmpleadoDepartamentos
+	 * Método comprobarEmpleadoDepartamentos comprueba que el Empleado no se encuentre en otros Departamentos
 	 * @param emp Empleado a comprobar
 	 * @param dept Departamento al que pertenece
 	 * @return true o false
@@ -324,7 +328,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método comprobarDirectorDepartamento
+	 * Método comprobarDirectorDepartamento comprueba que el Empleado no sea Director de otro Departamento
 	 * @param emp Empleado a comprobar
 	 * @param dept Departamento al que pertenece
 	 * @return true o false
@@ -347,7 +351,7 @@ public class EmpresaServicio {
 		
 	}
 	/**
-	 * Método comprobarEmpleado
+	 * Método comprobarEmpleado comprueba que el empleado no se encuentre aún en la listaEmpleados
 	 * @param dni a comprobar que no existe en la Lista de Empleados
 	 * @return true o false
 	 */
@@ -366,7 +370,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Método mostrarOganigrama
+	 * Método mostrarOganigrama muestra el Organigrama de la Empresa
 	 */
 	private void mostrarOrganigram() {
 		

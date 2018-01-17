@@ -220,10 +220,8 @@ public class EmpresaServicio {
 				System.out.println("Seleccione un Departamento");				
 				mostrarDepartamentos();
 				opcion2 = sc.nextInt();
-			}while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);	
-			auxemp = listaEmpleados.get(opcion1-1);
-			auxdept = listaDepartamentos.get(opcion2-1);				
-			comprobacionesAgregarEmpleadoDepartamento(auxemp,auxdept);				
+			}while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);						
+			comprobarAgregarEmpleadoDepartamento(listaEmpleados.get(opcion1-1),listaDepartamentos.get(opcion2-1));				
 		}
 		else if (listaEmpleados.size()==0)
 			System.out.println("Debe crear antes un Empleado");
@@ -261,11 +259,7 @@ public class EmpresaServicio {
 			opcion2 = sc.nextInt();
 			System.out.println(opcion2);
 		}while(opcion2-1>listaDepartamentos.size() -1|| opcion2-1 <0);	
-		auxemp = listaEmpleados.get(opcion1-1);
-		auxdept = listaDepartamentos.get(opcion2-1);	
-			if  (comprobarDirectorDepartamento(auxemp, auxdept))
-				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");			
-			else auxdept.setDirector(auxemp);			
+		comprobarAgregarDirector(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1));					
 		}
 		else if (listaEmpleados.size()==0)
 			System.out.println("Debe crear antes un Empleado");
@@ -275,12 +269,24 @@ public class EmpresaServicio {
 	}
 	
 	/**
+	 * Método comprobacionesAgregarDirector llama a las distintas comprobaciones a la hora de agregar un Director a un Departamento
+	 * @param empleado empleado a comprobar
+	 * @param departamento departamento a comprobar
+	 */
+	
+	private void comprobarAgregarDirector(Empleado empleado, Departamento departamento) {
+		if  (comprobarDirectorDepartamento(empleado, departamento))
+			System.out.println("Es Empleado seleccionado es Director de mas de un departamento");			
+		else departamento.setDirector(empleado);	
+		
+	}
+	/**
 	 * Método comprobacionesAgregarEmpleadoDepartamento llama a las distintas comprobaciones a la hora de agregar un Empleado a un Departamento
 	 * @param empleado empleado a comprobar
 	 * @param departamento departamento a comprobar
 	 */
 	
-	private void comprobacionesAgregarEmpleadoDepartamento(Empleado empleado, Departamento departamento) {
+	private void comprobarAgregarEmpleadoDepartamento(Empleado empleado, Departamento departamento) {
 		
 		if (comprobarEmpleadoDepartamentos(empleado, departamento)== false) {
 			if(comprobarDepartamento(departamento,empleado)==false) {

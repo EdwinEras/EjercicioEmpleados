@@ -395,12 +395,7 @@ public class EmpresaServicio {
 			System.out.println("Empleados");
 			System.out.println("-------------");	
 		}
-		int i = 0;
-		for (Empleado empleado : listaEmpleados) {				
-			System.out.println(i+1 + ") " + empleado.toString());
-			System.out.println("-------------");	
-			i++;
-		}		
+		mostrarEmpleado();
 	}
 
 }

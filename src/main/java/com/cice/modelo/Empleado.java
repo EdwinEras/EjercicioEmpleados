@@ -95,7 +95,7 @@ public class Empleado {
 		
 		@Override
 		public String toString() {
-			return "El nombre del empleado es " + this.nombre + " " + this.apellido;
+			return this.nombre + " " + this.apellido;
 		}
 	
 		

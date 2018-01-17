@@ -122,8 +122,13 @@ public class EmpresaServicio {
 	 * Método mostrarEmpleado
 	 */
 	private void mostrarEmpleado() {
-		System.out.println("-------------");
-		listaEmpleados.forEach((k)->System.out.println(k.toString()));
+		int i = 0;
+		
+		System.out.println("-------------");		
+		for (Empleado empleado : listaEmpleados) {			
+			System.out.println(i+1 + ") " + empleado.toString());	
+			i++;
+		}		
 		System.out.println("-------------");
 	}
 	
@@ -131,8 +136,13 @@ public class EmpresaServicio {
 	 * Método mostrarDepartamentos
 	 */
 	private void mostrarDepartamentos() {
+		int i = 0;
+		
 		System.out.println("-------------");
-		listaDepartamentos.forEach((k)->System.out.println(k.toString()));
+		for (Departamento departamento : listaDepartamentos) {			
+			System.out.println(i+1 + ") " + departamento.toString());		
+			i++;
+		}		
 		System.out.println("-------------");
 	}
 	
@@ -192,33 +202,37 @@ public class EmpresaServicio {
 	 * Método asignarEmpleado
 	 */
 	private void asignarEmpleado() {
-		final int i[] = new int[] {0};
 		Scanner sc = new Scanner (System.in);		
 		int opcion1 = 0;
 		int opcion2 =  0;
+		Empleado auxemp;
+		Departamento auxdept;
 		
 		if (listaEmpleados.size()>0) {
 			do {
-				i[0]= 0;
-				System.out.println("Seleccione un empleado");		
-				listaEmpleados.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});		
-				opcion1 = sc.nextInt();
+				if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)
+					System.out.println("Opccion Erronea");
+				System.out.println("Seleccione un empleado");	
+				mostrarEmpleado();						
+				opcion1 = sc.nextInt();				
 			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);	
 		}	
 		if (listaDepartamentos.size()>0) {
 			do {
-				i[0]= 0;
-				System.out.println("Seleccione un Departamento");
-				listaDepartamentos.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});
+				if(opcion2-1>listaEmpleados.size()-1 || opcion2-1 <0)
+					System.out.println("Opccion Erronea");
+				System.out.println("Seleccione un Departamento");				
+				mostrarDepartamentos();
 				opcion2 = sc.nextInt();
-			}while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);						
-				
-			if (comprobarEmpleadoDepartamentos(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1))== false) {
-				if(comprobarDepartamento(listaDepartamentos.get(opcion2-1),listaEmpleados.get(opcion1-1))==false) {
-					listaEmpleados.get(opcion1-1).setDepartamento(listaDepartamentos.get(opcion2-1));			
-					listaDepartamentos.get(opcion2-1).getListaEmpleados().add(listaEmpleados.get(opcion1-1));
+			}while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);	
+			auxemp = listaEmpleados.get(opcion1-1);
+			auxdept = listaDepartamentos.get(opcion2-1);				
+			if (comprobarEmpleadoDepartamentos(auxemp, auxdept)== false) {
+				if(comprobarDepartamento(auxdept,auxemp)==false) {
+					auxemp.setDepartamento(auxdept);			
+					auxdept.getListaEmpleados().add(auxemp);
 				}
-				else System.out.println("El Empleado ya está en este Departamento");				
+				else  System.out.println("El Empleado ya está en este Departamento");				
 			}
 			else System.out.println("El Empleado esta en mas de un Departamento");		
 		}
@@ -234,29 +248,33 @@ public class EmpresaServicio {
 		Scanner sc = new Scanner (System.in);
 		int opcion1 = 0;
 		int opcion2 = 0;
+		Empleado auxemp;
+		Departamento auxdept;
 		
-
 		if (listaEmpleados.size()>0) {
 			do {
-				i[0]= 0;
-				System.out.println("Seleccione un empleado");		
-				listaEmpleados.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});		
+				if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)
+					System.out.println("Opccion Erronea");
+				System.out.println("Seleccione un empleado");	
+				mostrarEmpleado();						
 				opcion1 = sc.nextInt();
 				System.out.println(listaEmpleados.size());
 			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);	
 		}
 		if (listaDepartamentos.size()>0) {
 		do {		
-			i[0] = 0;
+			if(opcion2-1>listaEmpleados.size()-1 || opcion2-1 <0)
+				System.out.println("Opccion Erronea");
 			System.out.println("Seleccione un Departamento en el que agregar al Empleado");		
-			listaDepartamentos.forEach(k->{System.out.println(i[0]+1 +") " +k.toString());i[0]++;});			
+			mostrarDepartamentos();			
 			opcion2 = sc.nextInt();
 			System.out.println(opcion2);
 		}while(opcion2-1>listaDepartamentos.size() -1|| opcion2-1 <0);	
-			if  (comprobarDirectorDepartamento(listaEmpleados.get(opcion1-1), listaDepartamentos.get(opcion2-1)))
-				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");				
-			
-			else listaDepartamentos.get(opcion2-1).setDirector(listaEmpleados.get(opcion1-1));			
+		auxemp = listaEmpleados.get(opcion1-1);
+		auxdept = listaDepartamentos.get(opcion2-1);	
+			if  (comprobarDirectorDepartamento(auxemp, auxdept))
+				System.out.println("Es Empleado seleccionado es Director de mas de un departamento");			
+			else auxdept.setDirector(auxemp);			
 		}		
 	}
 	
@@ -360,7 +378,11 @@ public class EmpresaServicio {
 		for (Departamento departamento : listaDepartamentos) {
 			System.out.println(departamento.toString());
 			if(departamento.getListaEmpleados().size()>0) {
-			departamento.getListaEmpleados().forEach((k)->System.out.println(k.toString()));
+				int i = 0;
+				for (Empleado empleado : departamento.getListaEmpleados()) {
+					System.out.println(i+1 + ") " + empleado.toString());
+					i++;
+				}
 			}
 			if(departamento.getDirector()!=null) {
 			System.out.println("El director del Departamento es--> " + departamento.getDirector().toString());
@@ -373,10 +395,11 @@ public class EmpresaServicio {
 			System.out.println("Empleados");
 			System.out.println("-------------");	
 		}
-		for (Empleado empleado : listaEmpleados) {
-				
-			System.out.println(empleado.toString());
-			System.out.println("-------------");			
+		int i = 0;
+		for (Empleado empleado : listaEmpleados) {				
+			System.out.println(i+1 + ") " + empleado.toString());
+			System.out.println("-------------");	
+			i++;
 		}		
 	}
 

@@ -214,7 +214,6 @@ public class EmpresaServicio {
 				mostrarEmpleado();						
 				opcion1 = sc.nextInt();				
 			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);			
-
 			do {
 				if(opcion2-1>listaEmpleados.size()-1 || opcion2-1 <0)
 					System.out.println("Opccion Erronea");
@@ -224,14 +223,7 @@ public class EmpresaServicio {
 			}while(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0);	
 			auxemp = listaEmpleados.get(opcion1-1);
 			auxdept = listaDepartamentos.get(opcion2-1);				
-			if (comprobarEmpleadoDepartamentos(auxemp, auxdept)== false) {
-				if(comprobarDepartamento(auxdept,auxemp)==false) {
-					auxemp.setDepartamento(auxdept);			
-					auxdept.getListaEmpleados().add(auxemp);
-				}
-				else  System.out.println("El Empleado ya está en este Departamento");				
-			}
-			else System.out.println("El Empleado esta en mas de un Departamento");		
+			comprobacionesAgregarEmpleadoDepartamento(auxemp,auxdept);				
 		}
 		else if (listaEmpleados.size()==0)
 			System.out.println("Debe crear antes un Empleado");
@@ -251,7 +243,7 @@ public class EmpresaServicio {
 		int opcion2 = 0;
 		Empleado auxemp;
 		Departamento auxdept;
-		
+			
 		if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
 			do {
 				if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)
@@ -280,6 +272,25 @@ public class EmpresaServicio {
 		
 		else
 			System.out.println("Debe crear antes un Departamento");
+	}
+	
+	/**
+	 * Método comprobacionesAgregarEmpleadoDepartamento llama a las distintas comprobaciones a la hora de agregar un Empleado a un Departamento
+	 * @param empleado empleado a comprobar
+	 * @param departamento departamento a comprobar
+	 */
+	
+	private void comprobacionesAgregarEmpleadoDepartamento(Empleado empleado, Departamento departamento) {
+		
+		if (comprobarEmpleadoDepartamentos(empleado, departamento)== false) {
+			if(comprobarDepartamento(departamento,empleado)==false) {
+				empleado.setDepartamento(departamento);			
+				departamento.getListaEmpleados().add(empleado);
+			}
+			else  System.out.println("El Empleado ya está en este Departamento");				
+		}
+		else System.out.println("El Empleado esta en mas de un Departamento");	
+		
 	}
 	
 	/**

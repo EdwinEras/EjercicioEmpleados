@@ -33,9 +33,10 @@ public class EmpresaServicio {
 			System.out.println("2. Crear Departamento");
 			System.out.println("3. Asignar Director a Departamento");
 			System.out.println("4. Asignar Empleado a Departamento");
-			System.out.println("5. Mostrar todos los Empleados");
-			System.out.println("6. Mostrar todos los Departamentos");
-			System.out.println("7. Mostrar Organigrama de la Empresa");
+			System.out.println("5. Asignar varios Empleados a un Departamento");
+			System.out.println("6. Mostrar todos los Empleados");
+			System.out.println("7. Mostrar todos los Departamentos");
+			System.out.println("8. Mostrar Organigrama de la Empresa");
 			System.out.println("0. salir");
 			opcion = sc.nextInt();
 			
@@ -70,16 +71,19 @@ public class EmpresaServicio {
 			case 4:
 				//Asignar Empleado a Departamento
 				asignarEmpleado();
-				break;				
+				break;		
 			case 5:
+				asignarVariosEmpleadosDepartamento();
+				break;
+			case 6:
 				//Mostrar todos los Empleados
 				mostrarEmpleado();
 				break;
-			case 6:
+			case 7:
 				//Mostrar todos los Departamentos
 				mostrarDepartamentos();
 				break;
-			case 7: 
+			case 8: 
 				//Mostrar Organigrama
 				mostrarOrganigram();
 				break;
@@ -112,8 +116,7 @@ public class EmpresaServicio {
 		empleado.setDireccion(sc.nextLine());
 		System.out.println("Introduce un e-mail");
 		empleado.setMail(sc.next());		
-		listaEmpleados.add(empleado);
-		System.out.println(empleado.toString());
+		listaEmpleados.add(empleado);		
 	}
 	
 	/**
@@ -229,8 +232,51 @@ public class EmpresaServicio {
 		else
 			System.out.println("Debe crear antes un Departamento");
 	}
-		
 	
+	/**
+	 * Méotod oasignarVariosEmpleadosDepartamento asigna uno o varios Empleados a un Departamento con comprobaciones
+	 */
+		
+	private void asignarVariosEmpleadosDepartamento() {
+		Scanner sc = new Scanner (System.in);
+		int [] empleadosSeleccionados;
+		int departamentoSeleccionado = 1;
+		boolean bandera = false;
+		
+		if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
+			do{
+				if(departamentoSeleccionado-1>listaDepartamentos.size()-1 || departamentoSeleccionado-1 <0)
+					System.out.println("Opcion erronea");				
+			System.out.println("Seleccione un Departamento");	
+			mostrarDepartamentos();
+			departamentoSeleccionado=Integer.parseInt(sc.nextLine());
+			}while(departamentoSeleccionado-1>listaDepartamentos.size()-1 || departamentoSeleccionado-1 <0);
+			do {
+				if(bandera)
+					System.out.println("Opcion erronea");	
+			System.out.println("Empleados Disponibles");
+			mostrarEmpleado();
+			System.out.print("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
+			String[] aux = sc.nextLine().split(",");
+			empleadosSeleccionados = new int[aux.length];
+			for(int i = 0; i < aux.length; i++){				
+				empleadosSeleccionados[i] = Integer.parseInt(aux[i]);
+				if (empleadosSeleccionados[i]-1 >listaEmpleados.size()-1 ||empleadosSeleccionados[i]-1 <0 )
+					bandera = true;
+				if(i == aux.length-1 && !(empleadosSeleccionados[i]-1 >listaEmpleados.size()-1 ||empleadosSeleccionados[i]-1 <0 ))
+					bandera = false;
+			}
+			}while(bandera);
+			
+			for (int i = 0; i < empleadosSeleccionados.length; i++) 
+				comprobarAgregarEmpleadoDepartamento(listaEmpleados.get(empleadosSeleccionados[i]-1),listaDepartamentos.get(departamentoSeleccionado-1));			
+		}
+		else if (listaEmpleados.size()<0) 
+			System.out.println("Debe agregar un Empleado antes");			
+		
+		else
+			System.out.println("Debe agregar un Departamento antes");
+	}
 	/**
 	 * Metodo asignarDirector con comprobaciones para que el Empleado no sea Director de más de un Departamento
 	 */

@@ -23,6 +23,7 @@ public class Departamento {
 	public Departamento() {
 		// TODO Auto-generated constructor stub
 		this.listaEmpleados = new ArrayList<>(); //Inicializamos el ArrayList
+		
 	}
 
 /**
@@ -32,11 +33,11 @@ public class Departamento {
  * @param telefono del departamento
  * 
  */
-	public Departamento(String nombre, String ubicacion, String telefono) {
+	public Departamento(String nombre, String ubicacion, String telefono, Empleado director) {
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		this.telefono = telefono;
-		this.director = new Empleado();
+		this.director = director;
 		this.listaEmpleados = new ArrayList<>(); //Inicializamos el ArrayList
 		
 	}
@@ -88,13 +89,7 @@ public class Departamento {
 
 	@Override
 	public String toString() {
-		return "El Departamento es " + this.nombre + " " + this.ubicacion + " " + this.telefono;
+		return this.nombre + " " + this.ubicacion;
 	}
-	
-	
-	
-	
-	
-	
 	
 }

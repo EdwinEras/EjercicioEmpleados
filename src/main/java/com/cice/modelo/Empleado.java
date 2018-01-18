@@ -34,8 +34,7 @@ public class Empleado {
 			this.direccion = direccion;
 			this.dni = dni;
 			this.mail = mail;
-			this.dept = new Departamento();
-			
+			this.dept = new Departamento();			
 			
 		}
 

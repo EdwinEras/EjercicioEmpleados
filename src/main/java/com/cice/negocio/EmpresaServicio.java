@@ -13,7 +13,7 @@ import com.cice.modelo.Empleado;
  *
  */
 
-public class EmpresaServicio {
+public class EmpresaServicio  {
 	
 	private ArrayList <Empleado> listaEmpleados= new ArrayList <>();
 	private ArrayList <Departamento> listaDepartamentos= new ArrayList <>();
@@ -37,7 +37,7 @@ public class EmpresaServicio {
 			System.out.println("6. Mostrar todos los Empleados");
 			System.out.println("7. Mostrar todos los Departamentos");
 			System.out.println("8. Mostrar Organigrama de la Empresa");
-			System.out.println("0. salir");
+			System.out.println("0. Salir");
 			opcion = sc.nextInt();			
 			controles (opcion);			
 		}while (opcion!=0);
@@ -276,8 +276,8 @@ public class EmpresaServicio {
 		Scanner sc = new Scanner(System.in);
 		do{
 		if(!auxiliar.matches("\\d+(,\\d+)?")) {
-			System.out.print("Opcion erronea");		
-			System.out.print("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
+			System.out.println("Opcion erronea");		
+			System.out.println("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
 			mostrarEmpleado();		
 			auxiliar = sc.nextLine();
 		}

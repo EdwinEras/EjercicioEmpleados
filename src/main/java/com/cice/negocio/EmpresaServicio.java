@@ -301,6 +301,26 @@ public class EmpresaServicio  {
 		return false;
 		
 	}
+	
+	/**
+	 * Método comprobacionesAgregarEmpleadoDepartamento llama a las distintas comprobaciones a la hora de agregar un Empleado a un Departamento
+	 * @param empleado empleado a comprobar
+	 * @param departamento departamento a comprobar
+	 */
+	
+	private void comprobarAgregarEmpleadoDepartamento(Empleado empleado, Departamento departamento) {
+		
+		if (comprobarEmpleadoDepartamentos(empleado, departamento)== false) {
+			if(comprobarDepartamento(departamento,empleado)==false) {
+				empleado.setDepartamento(departamento);			
+				departamento.getListaEmpleados().add(empleado);
+			}
+			else  System.out.println("El Empleado ya está en este Departamento");				
+		}
+		else System.out.println("El Empleado esta en mas de un Departamento");	
+		
+	}
+	
 	/**
 	 * Metodo asignarDirector con comprobaciones para que el Empleado no sea Director de más de un Departamento
 	 */
@@ -348,25 +368,7 @@ public class EmpresaServicio  {
 		else departamento.setDirector(empleado);	
 		
 	}
-	/**
-	 * Método comprobacionesAgregarEmpleadoDepartamento llama a las distintas comprobaciones a la hora de agregar un Empleado a un Departamento
-	 * @param empleado empleado a comprobar
-	 * @param departamento departamento a comprobar
-	 */
-	
-	private void comprobarAgregarEmpleadoDepartamento(Empleado empleado, Departamento departamento) {
 		
-		if (comprobarEmpleadoDepartamentos(empleado, departamento)== false) {
-			if(comprobarDepartamento(departamento,empleado)==false) {
-				empleado.setDepartamento(departamento);			
-				departamento.getListaEmpleados().add(empleado);
-			}
-			else  System.out.println("El Empleado ya está en este Departamento");				
-		}
-		else System.out.println("El Empleado esta en mas de un Departamento");	
-		
-	}
-	
 	/**
 	 * Método comprobarDepartamento comprueba que el Empleado dado no se encuentre aún en el Departamento
 	 * @param dept departamento a comprobar

@@ -231,7 +231,7 @@ public class EmpresaServicio {
 	}
 	
 	/**
-	 * Méotod oasignarVariosEmpleadosDepartamento asigna uno o varios Empleados a un Departamento con comprobaciones
+	 * Méotodo asignarVariosEmpleadosDepartamento asigna uno o varios Empleados a un Departamento con comprobaciones
 	 */
 		
 	private void asignarVariosEmpleadosDepartamento() {
@@ -254,15 +254,9 @@ public class EmpresaServicio {
 			System.out.println("Empleados Disponibles");
 			mostrarEmpleado();
 			System.out.print("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
-			String aux[] =validarCadena( sc.nextLine());
-			empleadosSeleccionados = new int[aux.length];
-			for(int i = 0; i < aux.length; i++){				
-				empleadosSeleccionados[i] = Integer.parseInt(aux[i]);
-				if (empleadosSeleccionados[i]-1 >listaEmpleados.size()-1 ||empleadosSeleccionados[i]-1 <0 )
-					bandera = true;
-				if(i == aux.length-1 && !(empleadosSeleccionados[i]-1 >listaEmpleados.size()-1 ||empleadosSeleccionados[i]-1 <0 ))
-					bandera = false;
-			}
+			String aux[] =validarCadena(sc.nextLine());
+			empleadosSeleccionados=new int[aux.length];
+			bandera = ComprobarEmpleadosDesdeCadena(aux, empleadosSeleccionados);
 			}while(bandera);			
 			for (int i = 0; i < empleadosSeleccionados.length; i++) 
 				comprobarAgregarEmpleadoDepartamento(listaEmpleados.get(empleadosSeleccionados[i]-1),listaDepartamentos.get(departamentoSeleccionado-1));			
@@ -290,7 +284,25 @@ public class EmpresaServicio {
 		}while(!auxiliar.matches("\\d+(,\\d+)?"));
 			return auxiliar.split(",");
 		}
+	
+	/**
+	 * Méotodo ComprobarEmpleadosDesdeCadena copia los empleados seleccionados desde el array de String y comprueba que sean válidas sus posiciones
+	 * @param cadena array de String en el que se encuentra la cadena después de procesarla con el método split
+	 * @param empleados seleccionados
+	 * @return true o false si los empleados son válidos
+	 */
 
+	private boolean ComprobarEmpleadosDesdeCadena(String [] cadena, int[] empleados) {		
+		for(int i = 0; i < cadena.length; i++){				
+			empleados[i] = Integer.parseInt(cadena[i]);
+			if (empleados[i]-1 >listaEmpleados.size()-1 ||empleados[i]-1 <0 )
+				return true;
+			if(i == cadena.length-1 && !(empleados[i]-1 >listaEmpleados.size()-1 ||empleados[i]-1 <0 ))
+				return false;
+		}
+		return false;
+		
+	}
 	/**
 	 * Metodo asignarDirector con comprobaciones para que el Empleado no sea Director de más de un Departamento
 	 */

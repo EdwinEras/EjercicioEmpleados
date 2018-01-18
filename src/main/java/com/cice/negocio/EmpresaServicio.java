@@ -38,12 +38,8 @@ public class EmpresaServicio {
 			System.out.println("7. Mostrar todos los Departamentos");
 			System.out.println("8. Mostrar Organigrama de la Empresa");
 			System.out.println("0. salir");
-			opcion = sc.nextInt();
-			
-			controles (opcion);
-		
-			
-			
+			opcion = sc.nextInt();			
+			controles (opcion);			
 		}while (opcion!=0);
 		sc.close();
 	}
@@ -73,6 +69,7 @@ public class EmpresaServicio {
 				asignarEmpleado();
 				break;		
 			case 5:
+				//Asignar uno o varios Empleados a un mismo Departamento
 				asignarVariosEmpleadosDepartamento();
 				break;
 			case 6:
@@ -266,14 +263,12 @@ public class EmpresaServicio {
 				if(i == aux.length-1 && !(empleadosSeleccionados[i]-1 >listaEmpleados.size()-1 ||empleadosSeleccionados[i]-1 <0 ))
 					bandera = false;
 			}
-			}while(bandera);
-			
+			}while(bandera);			
 			for (int i = 0; i < empleadosSeleccionados.length; i++) 
 				comprobarAgregarEmpleadoDepartamento(listaEmpleados.get(empleadosSeleccionados[i]-1),listaDepartamentos.get(departamentoSeleccionado-1));			
 		}
 		else if (listaEmpleados.size()<0) 
-			System.out.println("Debe agregar un Empleado antes");			
-		
+			System.out.println("Debe agregar un Empleado antes");	
 		else
 			System.out.println("Debe agregar un Departamento antes");
 	}

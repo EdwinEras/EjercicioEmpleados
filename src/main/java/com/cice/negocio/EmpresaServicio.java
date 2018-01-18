@@ -254,7 +254,7 @@ public class EmpresaServicio  {
 			System.out.println("Empleados Disponibles");
 			mostrarEmpleado();
 			System.out.print("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
-			String aux[] =validarCadena(sc.nextLine());
+			String aux[] =validarCadenaUsuario(sc.nextLine());
 			empleadosSeleccionados=new int[aux.length];
 			bandera = ComprobarEmpleadosDesdeCadena(aux, empleadosSeleccionados);
 			}while(bandera);			
@@ -268,11 +268,11 @@ public class EmpresaServicio  {
 	}
 	
 	/**
-	 * Método validarCadena valida que la cadena se ajuste a lo que se le pide al usuario (número, número)
+	 * Método validarCadenaUsuario valida que la cadena se ajuste a lo que se le pide al usuario (número, número)
 	 * @param auxiliar cadena a validar0
 	 * @return cadena dividida a partir de la coma en subcadenas
 	 */
-	private String[] validarCadena(String auxiliar){
+	private String[] validarCadenaUsuario(String auxiliar){
 		Scanner sc = new Scanner(System.in);
 		do{
 		if(!auxiliar.matches("\\d+(,\\d+)?")) {

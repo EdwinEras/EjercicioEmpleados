@@ -136,12 +136,10 @@ public class EmpresaServicio  {
 	private void mostrarDepartamentos() {
 		int i = 0;
 		
-		System.out.println("-------------");
 		for (Departamento departamento : listaDepartamentos) {			
 			System.out.println(i+1 + ") " + departamento.toString());		
 			i++;
-		}		
-		System.out.println("-------------");
+		}	
 	}
 	
 	/**
@@ -275,7 +273,7 @@ public class EmpresaServicio  {
 	private String[] validarCadenaUsuario(String auxiliar){
 		Scanner sc = new Scanner(System.in);
 		do{
-		if(!auxiliar.matches("\\d+(,\\d+)?")) {
+		if(!auxiliar.matches("\\d+(,\\d+)?")) { //
 			System.out.println("Opcion erronea");		
 			System.out.println("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
 			mostrarEmpleado();		
@@ -433,7 +431,6 @@ public class EmpresaServicio  {
 			
 			}
 		}
-		
 		return bandera;
 		
 	}
@@ -466,20 +463,24 @@ public class EmpresaServicio  {
 			System.out.println("Departamentos");
 			System.out.println("-------------");
 		}
+		int j = 0;
 		for (Departamento departamento : listaDepartamentos) {
-			System.out.println(departamento.toString());
+			
+			System.out.println(j+1 + ") " +departamento.toString());
+			j++;
 			if(departamento.getListaEmpleados().size()>0) {
+				System.out.println("Empleados en el Departamento");
+				System.out.println("-------------");
 				int i = 0;
 				for (Empleado empleado : departamento.getListaEmpleados()) {
 					System.out.println(i+1 + ") " + empleado.toString());
 					i++;
 				}
+				System.out.println("-------------");
 			}
 			if(departamento.getDirector()!=null) {
 			System.out.println("El director del Departamento es--> " + departamento.getDirector().toString());
-			}			
-			System.out.println("-------------");	
-			
+			}	
 		}
 		if(listaEmpleados.size() > 0) {
 			System.out.println("-------------");

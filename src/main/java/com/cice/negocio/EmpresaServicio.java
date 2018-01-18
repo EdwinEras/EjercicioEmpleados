@@ -254,7 +254,7 @@ public class EmpresaServicio {
 			System.out.println("Empleados Disponibles");
 			mostrarEmpleado();
 			System.out.print("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
-			String[] aux = sc.nextLine().split(",");
+			String aux[] =validarCadena( sc.nextLine());
 			empleadosSeleccionados = new int[aux.length];
 			for(int i = 0; i < aux.length; i++){				
 				empleadosSeleccionados[i] = Integer.parseInt(aux[i]);
@@ -272,6 +272,25 @@ public class EmpresaServicio {
 		else
 			System.out.println("Debe agregar un Departamento antes");
 	}
+	
+	/**
+	 * Método validarCadena valida que la cadena se ajuste a lo que se le pide al usuario (número, número)
+	 * @param auxiliar cadena a validar0
+	 * @return cadena dividida a partir de la coma en subcadenas
+	 */
+	private String[] validarCadena(String auxiliar){
+		Scanner sc = new Scanner(System.in);
+		do{
+		if(!auxiliar.matches("\\d+(,\\d+)?")) {
+			System.out.print("Opcion erronea");		
+			System.out.print("Seleccione 1 o varios empleados (Separados por coma ej: 1,2,4): ");
+			mostrarEmpleado();		
+			auxiliar = sc.nextLine();
+		}
+		}while(!auxiliar.matches("\\d+(,\\d+)?"));
+			return auxiliar.split(",");
+		}
+
 	/**
 	 * Metodo asignarDirector con comprobaciones para que el Empleado no sea Director de más de un Departamento
 	 */
@@ -280,9 +299,7 @@ public class EmpresaServicio {
 		Scanner sc = new Scanner (System.in);
 		int opcion1 = 0;
 		int opcion2 = 0;
-		Empleado auxemp;
-		Departamento auxdept;
-			
+		
 		if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
 			do {
 				if(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0)

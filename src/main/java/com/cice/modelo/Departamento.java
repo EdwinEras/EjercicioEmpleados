@@ -68,15 +68,11 @@ public class Departamento {
 	}
 	
 	public void setDirector (Empleado emp) {
-		
-		this.director= emp;
-		
+		this.director= emp;		
 	}
 	
 	public Empleado getDirector() {
-		
-		return this.director;
-		
+		return this.director;		
 	}
 	
 	public ArrayList<Empleado> getListaEmpleados() {

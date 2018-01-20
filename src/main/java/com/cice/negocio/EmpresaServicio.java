@@ -211,7 +211,7 @@ public class EmpresaServicio  {
 				opcion1 = sc.nextInt();				
 			}while(opcion1-1>listaEmpleados.size()-1 || opcion1-1 <0);			
 			do {
-				if(opcion2-1>listaEmpleados.size()-1 || opcion2-1 <0)
+				if(opcion2-1>listaDepartamentos.size()-1 || opcion2-1 <0)
 					System.out.println("Opccion Erronea");
 				System.out.println("Seleccione un Departamento");				
 				mostrarDepartamentos();

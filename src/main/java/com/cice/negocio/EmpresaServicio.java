@@ -201,8 +201,6 @@ public class EmpresaServicio  {
 		Scanner sc = new Scanner (System.in);		
 		int opcion1 = 0;
 		int opcion2 =  0;
-		Empleado auxemp;
-		Departamento auxdept;
 		
 		if (listaEmpleados.size()>0 && listaDepartamentos.size()>0) {
 			do {

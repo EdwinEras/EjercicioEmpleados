@@ -1,5 +1,7 @@
+package com.cice.negocio;
 
-import java.util.Scanner;
+import java.util.*;
+import com.cice.modelo.*;
 
 public class MostrarInformacion {
     
@@ -26,75 +28,79 @@ public class MostrarInformacion {
     }
     
     public static void controles (int opcion) {
+    	EmpresaServicio emprS = new EmpresaServicio();
+    	EmpleadoServicio emplS = new EmpleadoServicio();
+    	emprS.setListaEmpleados(emplS.getListaEmpleados());
+    	emplS.setListaDepartamentos(emprS.getListaDepartamentos());
         switch (opcion){
             case 0:
                 break;
             case 1:
                     //Crear Empleado
-                EmpresaServicio.crearEmpleado();
+                emplS.crear();
                 break;
             case 2:
                     //Crear Departamento
-                EmpresaServicio.crearDepartamento();
+                emprS.crear();
                 break;
             case 3:
                     //Asignar Director a Departamento
-                EmpresaServicio.asignarDirector();
+                emplS.asignarDirector();
                 break;
             case 4:
                     //Asignar Empleado a Departamento
-                EmpresaServicio.asignarEmpleado();
+                emplS.asignarDepartamento();
                 break;		
             case 5:
                     //Asignar uno o varios Empleados a un mismo Departamento
-                EmpresaServicio.asignarVariosEmpleadosDepartamento();
+                emprS.asignarDepartamento();
                 break;
             case 6:
                     //Mostrar todos los Empleados
-                mostrarEmpleado();
+                mostrarEmpleado(emplS.getListaEmpleados());
                 break;
             case 7:
                     //Mostrar todos los Departamentos
-                mostrarDepartamentos();
+                mostrarDepartamentos(emprS.getListaDepartamentos());
                 break;
             case 8: 
                     //Mostrar Organigrama
-                mostrarOrganigram();
+                mostrarOrganigram(emprS.getListaDepartamentos(),emplS.getListaEmpleados());
                 break;
             default:
                 System.out.println("la opcion seleccionada no es valida");				
         }
     }
     
-    public static void mostrarEmpleado() {
+    public static void mostrarEmpleado(ArrayList<Empleado> listaEmpleados) {
         int i = 0;
 
         System.out.println("-------------");		
-        for (Empleado empleado : EmpresaServicio.listaEmpleados) {			
+        for (Empleado empleado : listaEmpleados) {			
                 System.out.println(i+1 + ") " + empleado.toString());	
                 i++;
         }		
         System.out.println("-------------");
     }
     
-    public static void mostrarDepartamentos() {
+    public static void mostrarDepartamentos(ArrayList<Departamento> listaDepartamentos) {
             int i = 0;
 
-            for (Departamento departamento : EmpresaServicio.listaDepartamentos) {			
+            for (Departamento departamento : listaDepartamentos) {			
                     System.out.println(i+1 + ") " + departamento.toString());		
                     i++;
             }	
     }
     
-    public static void mostrarOrganigram() {
+    public static void mostrarOrganigram(ArrayList<Departamento> listaDepartamentos,ArrayList<Empleado> listaEmpleados) {
 
-            if (EmpresaServicio.listaDepartamentos.size()>0) {
+            if (listaDepartamentos.size()>0) {
                     System.out.println("-------------");
                     System.out.println("Departamentos");
                     System.out.println("-------------");
             }
             int j = 0;
-            for (Departamento departamento : EmpresaServicio.listaDepartamentos) {
+            for (Departamento departamento : listaDepartamentos) {
 
                     System.out.println(j+1 + ") " +departamento.toString());
                     j++;
@@ -112,12 +118,12 @@ public class MostrarInformacion {
                     System.out.println("El director del Departamento es--> " + departamento.getDirector().toString());
                     }	
             }
-            if(EmpresaServicio.listaEmpleados.size() > 0) {
+            if(listaEmpleados.size() > 0) {
                     System.out.println("-------------");
                     System.out.println("Empleados");
                     System.out.println("-------------");	
             }
-            mostrarEmpleado();
+            mostrarEmpleado(listaEmpleados);
     }
     
 }

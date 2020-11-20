@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 
+package com.cice.main;
+
+import java.util.*;
+import com.cice.negocio.MostrarInformacion;
 /**
  *
  * @author ADMIN
@@ -16,8 +20,7 @@ public class EjercicioEmpleadosApplication {
     public static void main(String[] args) {
 		SpringApplication.run(EjercicioEmpleadosApplication.class, args);
 		
-		EmpresaServicio servicio = new EmpresaServicio();
-		servicio.showMenu();
+		MostrarInformacion.showMenu();
 	}
     
 }
